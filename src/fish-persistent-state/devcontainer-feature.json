@@ -1,0 +1,17 @@
+{
+    "name": "Fish - persistent local state",
+    "id": "fish-persistent-state",
+    "version": "1.0.0",
+    "description": "A feature that provides persistent state for Fish shell",
+    "mounts": [
+        {
+            "source": "fish-persistent-state-${devcontainerId}",
+            "target": "/mnt/fish-persistent-state",
+            "type": "volume"
+        }
+    ],
+    "onCreateCommand": "sh .devcontainer/fish-persistent-state/on-create.sh",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

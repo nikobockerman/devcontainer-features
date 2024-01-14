@@ -12,7 +12,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        features: []
+        features:
+          - fish-persistent-state
         baseImage:
           - debian:latest
           - ubuntu:latest
@@ -31,7 +32,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        features: []
+        features:
+          - fish-persistent-state
     steps:
       - uses: actions/checkout@v3
 

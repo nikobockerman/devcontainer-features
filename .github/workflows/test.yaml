@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         features:
-          - fish-persistent-state
+          - fish-persistent-data
         baseImage:
           - debian:latest
           - ubuntu:latest
@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         features:
-          - fish-persistent-state
+          - fish-persistent-data
     steps:
       - uses: actions/checkout@v3
 

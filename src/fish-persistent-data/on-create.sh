@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e
 
-echo "Activating feature 'fish-persistent-state'"
+echo "Activating feature 'fish-persistent-data'"
 
 user=$(id -un)
 echo "User: $user"
 
-mount_point="/mnt/fish-persistent-state"
+mount_point="/mnt/fish-persistent-data"
 
 if ! mount | grep -q "$mount_point" >/dev/null; then
     echo "******************************************"

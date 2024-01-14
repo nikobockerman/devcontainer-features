@@ -13,12 +13,14 @@
                 ]
             },
             "extensions": [
+                "github.vscode-github-actions",
                 "mads-hartmann.bash-ide-vscode"
             ]
         }
     },
     "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {}
     },
     "remoteUser": "node",
     "updateContentCommand": "npm install -g @devcontainers/cli"

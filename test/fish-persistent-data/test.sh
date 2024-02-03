@@ -29,8 +29,6 @@
 #               --base-image mcr.microsoft.com/devcontainers/base:ubuntu \
 #               /path/to/this/repo
 
-set -e
-
 # Optional: Import test library bundled with the devcontainer CLI
 # See https://github.com/devcontainers/cli/blob/HEAD/docs/features/test.md#dev-container-features-test-lib
 # Provides the 'check' and 'reportResults' commands.
@@ -59,7 +57,7 @@ stat "$datadir"
 echo "Stat persistentdir:"
 stat "$persistentdir"
 
-check "validate mount exists" mount | grep $mountpoint >/dev/null
+check "validate mount exists" grep $mountpoint /proc/mounts >/dev/null
 
 check "validate symlink exists" test -L "$datadir"
 check "validate data symlink exists" test "$(readlink "$datadir")" = "$persistentdir"

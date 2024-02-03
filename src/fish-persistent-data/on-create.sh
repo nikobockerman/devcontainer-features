@@ -8,7 +8,7 @@ echo "User: $user"
 
 mount_point="/mnt/fish-persistent-data"
 
-if ! mount | grep -q "$mount_point" >/dev/null; then
+if ! grep -q "$mount_point" /proc/mounts >/dev/null; then
     echo "******************************************"
     echo "*** Requires mount point to be mounted ***"
     echo "******************************************"

@@ -59,7 +59,7 @@ stat "$datadir"
 echo "Stat persistentdir:"
 stat "$persistentdir"
 
-check "validate mount exists" mount | grep $mountpoint >/dev/null
+check "validate mount exists" grep $mountpoint /proc/mounts >/dev/null
 
 check "validate symlink exists" test -L "$datadir"
 check "validate data symlink exists" test "$(readlink "$datadir")" = "$persistentdir"

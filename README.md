@@ -1,5 +1,6 @@
-# Dev Container Features
+# Dev Container Features by Niko Böckerman
 
-This repository contains Dev Container Features.
+This repository provides few additional Dev Container Features:
 
-This repository is based on [Dev Container feature starter template](https://github.com/devcontainers/template-starter).
+* [`fish-persistent-data`](./src/fish-persistent-data/) - A feature which
+  provides persistent data for Fish shell.

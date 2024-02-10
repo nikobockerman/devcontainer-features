@@ -6,13 +6,6 @@ user_local_dir=$HOME/.local
 user_share_dir=$user_local_dir/share
 user_fish_data_dir=$user_share_dir/fish
 
-# Migrate fish data from location used in versions 1.0.* to new location
-prev_fish_persistent_dir="$mount_point"/fish
-if [ -d "$prev_fish_persistent_dir" ]; then
-    echo "Migrating data from: $prev_fish_persistent_dir to $mount_point"
-    mv "$prev_fish_persistent_dir"/* "$mount_point"
-    rmdir "$prev_fish_persistent_dir"
-fi
 
 sudo() {
     if [ "$USER" = root ]; then
@@ -24,6 +17,14 @@ sudo() {
 
 # Prepare mounted volume permissions
 sudo chown "$USER":"$USER" "$mount_point"
+
+# Migrate fish data from location used in versions 1.0.* to new location
+prev_fish_persistent_dir="$mount_point"/fish
+if [ -d "$prev_fish_persistent_dir" ]; then
+    echo "Migrating data from: $prev_fish_persistent_dir to $mount_point"
+    mv "$prev_fish_persistent_dir"/* "$mount_point"
+    rmdir "$prev_fish_persistent_dir"
+fi
 
 # Rename theoretical old fish data directory
 if [ -d "$user_fish_data_dir" ]; then

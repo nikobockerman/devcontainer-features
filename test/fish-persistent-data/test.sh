@@ -42,30 +42,28 @@ user=$(id -un)
 group=$(id -gn)
 mountpoint=/mnt/fish-persistent-data
 datadir=$HOME/.local/share/fish
-persistentdir=$mountpoint/fish
 
 echo "Testing fish-persistent-data feature"
 echo "User: $user"
 echo "Group: $group"
 echo "Mountpoint: $mountpoint"
 echo "Data dir: $datadir"
-echo "Persistent dir: $persistentdir"
 
 echo "Stat datadir:"
 stat "$datadir"
 
-echo "Stat persistentdir:"
-stat "$persistentdir"
+echo "Stat mountpoint:"
+stat "$mountpoint"
 
 check "validate mount exists" grep $mountpoint /proc/mounts >/dev/null
 
 check "validate symlink exists" test -L "$datadir"
-check "validate data symlink exists" test "$(readlink "$datadir")" = "$persistentdir"
+check "validate data symlink exists" test "$(readlink "$datadir")" = "$mountpoint"
 
-check "validate persistent dir user" test "$(stat -c '%U' "$persistentdir")" = "$user"
-check "validate persistent dir group" test "$(stat -c '%G' "$persistentdir")" = "$group"
-perm=$(stat -c '%a' "$persistentdir")
-check "validate persistent dir permissions" test "${perm:0:1}" = 7
+check "validate mountpoint user" test "$(stat -c '%U' "$mountpoint")" = "$user"
+check "validate mountpoint group" test "$(stat -c '%G' "$mountpoint")" = "$group"
+perm=$(stat -c '%a' "$mountpoint")
+check "validate mountpoint permissions" test "${perm:0:1}" = 7
 
 dir=$datadir
 while [ "$dir" != "$HOME" ]; do

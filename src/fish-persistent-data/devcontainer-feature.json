@@ -1,7 +1,7 @@
 {
     "name": "Fish - persistent data",
     "id": "fish-persistent-data",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "A feature that provides persistent data for Fish shell",
     "mounts": [
         {
@@ -11,7 +11,7 @@
         }
     ],
     "onCreateCommand": [
-        "/usr/local/share/feature_fish-persistent-data_on-create.sh"
+        "/usr/local/share/github-nikobockerman/devcontainer-features/fish-persistent-data/onCreate.sh"
     ],
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"

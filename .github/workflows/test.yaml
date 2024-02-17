@@ -14,6 +14,7 @@ jobs:
       matrix:
         features:
           - fish-persistent-data
+          - poetry-persistent-cache
         baseImage:
           - mcr.microsoft.com/devcontainers/base:alpine
           - mcr.microsoft.com/devcontainers/base:debian
@@ -34,6 +35,7 @@ jobs:
       matrix:
         features:
           - fish-persistent-data
+          - poetry-persistent-cache
     steps:
       - uses: actions/checkout@v4
 

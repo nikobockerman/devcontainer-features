@@ -1,7 +1,7 @@
 {
     "name": "Poetry - persistent cache",
     "id": "poetry-persistent-cache",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A feature that provides persistent cache for Poetry",
     "containerEnv": {
         "POETRY_CACHE_DIR": "/mnt/poetry-persistent-cache"
@@ -15,8 +15,5 @@
     ],
     "onCreateCommand": [
         "/usr/local/share/github-nikobockerman/devcontainer-features/poetry-persistent-cache/onCreate.sh"
-    ],
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
     ]
 }

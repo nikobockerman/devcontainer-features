@@ -1,24 +1,11 @@
 #!/bin/sh
 set -e
 
-# Debug settings
-echo "Enabling debug output to investigate why fish-persistent-data fails to install properly on VSCode Recovery Containers"
-set -x
-
 mount_point="/mnt/fish-persistent-data"
 user_local_dir=$HOME/.local
 user_share_dir=$user_local_dir/share
 user_fish_data_dir=$user_share_dir/fish
 
-env|sort || true
-mount || true
-umask || true
-ls -la /mnt/ || true
-ls -la "$mount_point" || true
-ls -la "$HOME" || true
-ls -la "$user_local_dir" || true
-ls -la "$user_share_dir" || true
-ls -la "$user_fish_data_dir" || true
 
 sudo() {
     if [ "$USER" = root ]; then
@@ -35,9 +22,7 @@ sudo chown "$USER":"$USER" "$mount_point"
 prev_fish_persistent_dir="$mount_point"/fish
 if [ -d "$prev_fish_persistent_dir" ]; then
     echo "Migrating data from: $prev_fish_persistent_dir to $mount_point"
-    ls -la "$prev_fish_persistent_dir" || true
     mv "$prev_fish_persistent_dir"/* "$mount_point"
-    ls -la "$mount_point" || true
     rmdir "$prev_fish_persistent_dir"
 fi
 

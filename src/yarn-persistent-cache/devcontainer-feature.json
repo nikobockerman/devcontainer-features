@@ -1,0 +1,20 @@
+{
+  "name": "Yarn - persistent cache",
+  "id": "yarn-persistent-cache",
+  "version": "1.0.0",
+  "description": "A feature that provides persistent cache for Yarn. Compatible when yarn project is used with global cache (default), not compatible with Zero-installs projects.",
+  "containerEnv": {
+    "YARN_ENABLE_GLOBAL_CACHE": "false",
+    "YARN_CACHE_FOLDER": "/mnt/yarn-persistent-cache"
+  },
+  "mounts": [
+    {
+      "source": "yarn-persistent-cache-${devcontainerId}",
+      "target": "/mnt/yarn-persistent-cache",
+      "type": "volume"
+    }
+  ],
+  "onCreateCommand": [
+    "/usr/local/share/github-nikobockerman/devcontainer-features/yarn-persistent-cache/onCreate.sh"
+  ]
+}

@@ -19,10 +19,9 @@
     }
   },
   "features": {
-    "ghcr.io/eitsupi/devcontainer-features/go-task:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {}
   },
   "remoteUser": "node",
-  "updateContentCommand": "npm install -g @devcontainers/cli"
+  "updateContentCommand": "npm install && npm install -g @devcontainers/cli"
 }

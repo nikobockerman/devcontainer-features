@@ -1,9 +1,14 @@
 {
   "scripts": {
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "renovateconfig": "npm exec --package=renovate -- renovate-config-validator --strict"
   },
   "devDependencies": {
     "prettier": "3.3.3"
-  }
+  },
+  "engines": {
+    "node": "^18.0.0"
+  },
+  "private": true
 }

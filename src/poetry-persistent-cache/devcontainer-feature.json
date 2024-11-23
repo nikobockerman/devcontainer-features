@@ -1,19 +1,19 @@
 {
-    "name": "Poetry - persistent cache",
-    "id": "poetry-persistent-cache",
-    "version": "1.0.1",
-    "description": "A feature that provides persistent cache for Poetry",
-    "containerEnv": {
-        "POETRY_CACHE_DIR": "/mnt/poetry-persistent-cache"
-    },
-    "mounts": [
-        {
-            "source": "poetry-persistent-cache-${devcontainerId}",
-            "target": "/mnt/poetry-persistent-cache",
-            "type": "volume"
-        }
-    ],
-    "onCreateCommand": [
-        "/usr/local/share/github-nikobockerman/devcontainer-features/poetry-persistent-cache/onCreate.sh"
-    ]
+  "name": "Poetry - persistent cache",
+  "id": "poetry-persistent-cache",
+  "version": "1.0.1",
+  "description": "A feature that provides persistent cache for Poetry",
+  "containerEnv": {
+    "POETRY_CACHE_DIR": "/mnt/poetry-persistent-cache"
+  },
+  "mounts": [
+    {
+      "source": "poetry-persistent-cache-${devcontainerId}",
+      "target": "/mnt/poetry-persistent-cache",
+      "type": "volume"
+    }
+  ],
+  "onCreateCommand": [
+    "/usr/local/share/github-nikobockerman/devcontainer-features/poetry-persistent-cache/onCreate.sh"
+  ]
 }

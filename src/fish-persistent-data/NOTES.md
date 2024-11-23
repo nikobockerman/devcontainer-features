@@ -7,7 +7,7 @@
   the subdirectory doesn't add any value.
   A migration is included which moves the data to new location so that it
   remains available when this new version is updated to for a container that
-  already had data created in the persistent volume by 1.* version
+  already had data created in the persistent volume by 1.\* version
 - The logic for creating the symlink is moved from install.sh to a script that
   is run as onCreateCommand. This is done because VSCode Recovery container
   runs the install.sh but doesn't add the mount and doesn't run

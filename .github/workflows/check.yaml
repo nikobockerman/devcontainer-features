@@ -11,8 +11,8 @@ jobs:
     name: "Checks"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version: 18
           cache: npm
@@ -25,5 +25,5 @@ jobs:
     name: "Renovate config validator"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.1.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: suzuki-shunsuke/github-action-renovate-config-validator@36a15b83e37bf3221dc9c02ff5ffdaefb51ca1cf # v1.1.0

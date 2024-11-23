@@ -13,6 +13,7 @@
                 ]
             },
             "extensions": [
+                "editorconfig.editorconfig",
                 "github.vscode-github-actions",
                 "mads-hartmann.bash-ide-vscode"
             ]

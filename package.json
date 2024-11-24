@@ -4,7 +4,8 @@
     "check:prettier": "prettier --check .",
     "check:renovateconfig": "npm exec --package=renovate -- renovate-config-validator --strict",
     "check:shellcheck": "shellcheck $(git ls-files | grep \".sh$\")",
-    "check": "npm-run-all --parallel --print-label 'check:*'"
+    "check": "npm-run-all --parallel --print-label 'check:*'",
+    "all": "npm install && npm run check"
   },
   "devDependencies": {
     "npm-run-all2": "7.0.1",

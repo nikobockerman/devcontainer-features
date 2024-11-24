@@ -1,11 +1,13 @@
 {
   "scripts": {
-    "format": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "renovateconfig": "npm exec --package=renovate -- renovate-config-validator --strict",
-    "shellcheck": "shellcheck $(git ls-files | grep \".sh$\")"
+    "fix:prettier": "npm run check:prettier -- --write",
+    "check:prettier": "prettier --check .",
+    "check:renovateconfig": "npm exec --package=renovate -- renovate-config-validator --strict",
+    "check:shellcheck": "shellcheck $(git ls-files | grep \".sh$\")",
+    "check": "npm-run-all --parallel --print-label 'check:*'"
   },
   "devDependencies": {
+    "npm-run-all2": "7.0.1",
     "prettier": "3.3.3"
   },
   "engines": {

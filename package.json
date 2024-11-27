@@ -8,6 +8,7 @@
     "all": "npm install && npm run check"
   },
   "devDependencies": {
+    "@devcontainers/cli": "0.72.0",
     "npm-run-all2": "7.0.1",
     "prettier": "3.3.3"
   },

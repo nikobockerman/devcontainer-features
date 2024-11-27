@@ -1,6 +1,8 @@
-name: CI - Checks
+name: CI - Shellcheck
 on:
   pull_request:
+    paths:
+      - "**.sh"
   push:
     branches:
       - main
@@ -10,13 +12,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  checks:
-    name: Checks
+  shellcheck:
+    name: Shellcheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup project
-        uses: ./.github/actions/npm-project-setup
-      - name: Check format
-        run: npm run check:prettier
+      - name: Validate shellcheck
+        run: npm run check:shellcheck

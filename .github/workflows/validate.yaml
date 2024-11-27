@@ -1,6 +1,8 @@
 name: CI - Validate devcontainer-feature.json files
 on:
   pull_request:
+    paths:
+      - "src/**/devcontainer-feature.json"
   push:
     branches:
       - main

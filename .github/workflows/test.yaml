@@ -1,6 +1,11 @@
 name: CI - Test Features
 on:
   pull_request:
+    paths:
+      - "src/**"
+      - "!src/**/README.md"
+      - "!src/**/NOTES.md"
+      - "test/**"
   push:
     branches:
       - main

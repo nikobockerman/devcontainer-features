@@ -1,0 +1,25 @@
+name: CI - Github actions
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/**.yaml"
+      - ".github/actions/**"
+  push:
+    branches:
+      - main
+  schedule:
+    # Run every Monday at 00:30 UTC
+    - cron: "30 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  actions:
+    name: Check Github actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup project
+        uses: ./.github/actions/npm-project-setup
+      - name: Lint Actions
+        run: npm run check:github-actions

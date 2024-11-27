@@ -1,6 +1,7 @@
 {
   "scripts": {
     "fix:prettier": "npm run check:prettier -- --write",
+    "check:github-actions": "git ls-files '.github/**.yaml' | xargs -t -I {} action-validator {}",
     "check:prettier": "prettier --check .",
     "check:renovateconfig": "npm exec --package=renovate -- renovate-config-validator --strict",
     "check:shellcheck": "shellcheck $(git ls-files | grep \".sh$\")",
@@ -8,6 +9,7 @@
     "all": "npm install && npm run check"
   },
   "devDependencies": {
+    "@action-validator/cli": "0.6.0",
     "@devcontainers/cli": "0.72.0",
     "npm-run-all2": "7.0.1",
     "prettier": "3.3.3"

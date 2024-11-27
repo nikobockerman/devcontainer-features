@@ -1,0 +1,13 @@
+name: NPM project setup
+description: Setup node and npm dependencies for project
+runs:
+  using: composite
+  steps:
+    - name: Setup node
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      with:
+        node-version: 22
+        cache: npm
+    - name: Install project dependencies
+      run: npm ci
+      shell: bash

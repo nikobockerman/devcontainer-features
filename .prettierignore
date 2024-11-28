@@ -1,2 +1,3 @@
 # Generated readme files for features
+# These need to match rules in .github/workflows/format.yaml
 /src/*/README.md

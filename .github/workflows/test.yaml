@@ -2,6 +2,8 @@ name: CI - Test Features
 on:
   pull_request:
     paths:
+      - "package.json"
+      - "package-lock.json"
       - "src/**"
       - "!src/**/README.md"
       - "!src/**/NOTES.md"

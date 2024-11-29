@@ -4,6 +4,8 @@ on:
     paths:
       - ".github/workflows/**.yaml"
       - ".github/actions/**"
+      - "package.json"
+      - "package-lock.json"
   push:
     branches:
       - main

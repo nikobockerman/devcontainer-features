@@ -1,6 +1,9 @@
-name: CI - Checks
+name: CI - Format
 on:
   pull_request:
+    paths-ignore:
+      # These need to match rules in .prettierignore
+      - "src/*/README.md"
   push:
     branches:
       - main
@@ -10,8 +13,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  checks:
-    name: Checks
+  format:
+    name: Validate formatting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

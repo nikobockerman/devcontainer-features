@@ -1,4 +1,4 @@
-name: CI - Format
+name: Check - Format
 on:
   pull_request:
     paths-ignore:

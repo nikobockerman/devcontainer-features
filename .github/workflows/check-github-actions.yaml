@@ -1,4 +1,4 @@
-name: CI - Github actions
+name: Check - Github actions
 on:
   pull_request:
     paths:

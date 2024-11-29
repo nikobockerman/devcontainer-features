@@ -1,4 +1,4 @@
-name: CI - Validate devcontainer-feature.json files
+name: Check - Feature configurations
 on:
   pull_request:
     paths:

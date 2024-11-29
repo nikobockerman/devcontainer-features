@@ -1,4 +1,4 @@
-name: CI - Renovate config
+name: Check - Renovate config
 on:
   pull_request:
     paths:

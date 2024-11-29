@@ -1,4 +1,4 @@
-name: CI - Test Features
+name: Test - Features
 on:
   pull_request:
     paths:

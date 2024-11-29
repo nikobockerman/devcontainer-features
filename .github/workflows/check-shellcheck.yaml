@@ -1,4 +1,4 @@
-name: CI - Shellcheck
+name: Check - Shellcheck
 on:
   pull_request:
     paths:

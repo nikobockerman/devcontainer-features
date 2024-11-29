@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Run every Monday at 00:30 UTC
+    - cron: "30 0 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: ci
+  cancel-in-progress: false
+
+jobs:
+  check-feature-configs:
+    uses: ./.github/workflows/check-feature-configs.yaml
+  check-format:
+    uses: ./.github/workflows/check-format.yaml
+  check-github-actions:
+    uses: ./.github/workflows/check-github-actions.yaml
+  check-renovate-config:
+    uses: ./.github/workflows/check-renovate-config.yaml
+  check-shellcheck:
+    uses: ./.github/workflows/check-shellcheck.yaml
+  test-features:
+    uses: ./.github/workflows/test-features.yaml

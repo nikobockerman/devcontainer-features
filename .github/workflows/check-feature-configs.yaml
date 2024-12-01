@@ -2,6 +2,7 @@ name: Check - Feature configurations
 on:
   pull_request:
     paths:
+      - ".github/workflows/check-feature-configs.yaml"
       - "src/**/devcontainer-feature.json"
   workflow_call:
   workflow_dispatch:

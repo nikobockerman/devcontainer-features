@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - "**.sh"
+      - ".github/workflows/check-shellcheck.yaml"
   workflow_call:
   workflow_dispatch:
 

@@ -15,4 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Validate shellcheck
+        # Use npm to run shellcheck. The command doesn't depend on project
+        # dependencies and npm is already installed.
         run: npm run check:shellcheck

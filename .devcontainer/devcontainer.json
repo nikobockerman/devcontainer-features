@@ -1,5 +1,11 @@
 {
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {}
+  },
+  "updateContentCommand": "npm install && npm install -g @devcontainers/cli",
+  "remoteUser": "node",
   "customizations": {
     "vscode": {
       "settings": {
@@ -17,11 +23,5 @@
         "mads-hartmann.bash-ide-vscode"
       ]
     }
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {}
-  },
-  "remoteUser": "node",
-  "updateContentCommand": "npm install && npm install -g @devcontainers/cli"
+  }
 }

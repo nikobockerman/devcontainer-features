@@ -5,7 +5,7 @@ on:
       - ".github/workflows/**.yaml"
       - ".github/actions/**"
       - "package.json"
-      - "package-lock.json"
+      - "yarn.lock"
   workflow_call:
   workflow_dispatch:
 
@@ -17,6 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Setup project
-        uses: ./.github/actions/npm-project-setup
+        uses: ./.github/actions/yarn-project-setup
       - name: Lint Actions
-        run: npm run check:github-actions
+        run: yarn run check:github-actions

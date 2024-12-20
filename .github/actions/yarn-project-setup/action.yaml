@@ -1,0 +1,16 @@
+name: Yarn project setup
+description: Setup node, yarn and dependencies for project
+runs:
+  using: composite
+  steps:
+    - name: Enable corepack to install yarn
+      run: corepack enable
+      shell: bash
+    - name: Setup node
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      with:
+        node-version: 22
+        cache: yarn
+    - name: Install yarn and project dependencies
+      run: yarn install --immutable
+      shell: bash

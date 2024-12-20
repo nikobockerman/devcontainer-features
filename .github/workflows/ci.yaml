@@ -23,5 +23,7 @@ jobs:
     uses: ./.github/workflows/check-renovate-config.yaml
   check-shellcheck:
     uses: ./.github/workflows/check-shellcheck.yaml
+  check-yarn:
+    uses: ./.github/workflows/check-yarn.yaml
   test-features:
     uses: ./.github/workflows/test-features.yaml

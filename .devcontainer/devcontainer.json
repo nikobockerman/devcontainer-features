@@ -1,5 +1,20 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/node:1.6.1": {
+      "version": "22",
+      "installYarnUsingApt": false
+    },
+    "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {},
+    "ghcr.io/nikobockerman/devcontainer-features/yarn-persistent-cache:1": {}
+  },
+  "containerEnv": {
+    "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+  },
+  "onCreateCommand": "yarn",
+  "updateContentCommand": "yarn",
+  "remoteUser": "node",
   "customizations": {
     "vscode": {
       "settings": {
@@ -17,11 +32,5 @@
         "mads-hartmann.bash-ide-vscode"
       ]
     }
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {}
-  },
-  "remoteUser": "node",
-  "updateContentCommand": "npm install && npm install -g @devcontainers/cli"
+  }
 }

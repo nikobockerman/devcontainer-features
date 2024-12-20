@@ -4,6 +4,7 @@
     "check:github-actions": "git ls-files '.github/**.yaml' | xargs -t -I {} action-validator {}",
     "check:prettier": "prettier --check .",
     "check:renovateconfig": "yarn dlx --package=renovate --quiet renovate-config-validator --strict",
+    "check:yarn:dedupe": "yarn dedupe --check",
     "check:shellcheck": "shellcheck $(git ls-files | grep '.sh$')",
     "check": "npm-run-all --parallel --print-label 'check:**'",
     "all": "yarn install && yarn run check"

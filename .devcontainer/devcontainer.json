@@ -12,7 +12,7 @@
   "containerEnv": {
     "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
   },
-  "onCreateCommand": "yarn",
+  "onCreateCommand": "yarn && yarn dlx @yarnpkg/sdks vscode",
   "updateContentCommand": "yarn",
   "remoteUser": "node",
   "customizations": {
@@ -26,10 +26,12 @@
         ]
       },
       "extensions": [
+        "arcanis.vscode-zipfs",
         "editorconfig.editorconfig",
         "esbenp.prettier-vscode",
         "github.vscode-github-actions",
-        "mads-hartmann.bash-ide-vscode"
+        "mads-hartmann.bash-ide-vscode",
+        "ms-azuretools.vscode-docker"
       ]
     }
   }

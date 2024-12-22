@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "github.vscode-github-actions",
+    "ms-azuretools.vscode-docker",
+    "mads-hartmann.bash-ide-vscode",
+    "arcanis.vscode-zipfs"
+  ]
+}

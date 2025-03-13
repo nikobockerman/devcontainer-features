@@ -25,12 +25,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devcontainers/cli@npm:0.74.0":
-  version: 0.74.0
-  resolution: "@devcontainers/cli@npm:0.74.0"
+"@devcontainers/cli@npm:0.75.0":
+  version: 0.75.0
+  resolution: "@devcontainers/cli@npm:0.75.0"
   bin:
     devcontainer: devcontainer.js
-  checksum: 10c0/481a322d534ec0fd90da85dd33f41ed601577cc4241f143c2bf9d135828275c487e996841400a30e54ee94eddff7b03b35591e4129ea0996402640c02d1c0f3d
+  checksum: 10c0/5877947e6955dbc39c41af9dc6fb9cbe6d1fff4f6b347a9bba671ac133d94ab83eac59090607e22033edf2b0fb6cdca7cf09f18eb179c66491f823deb0522fd0
   languageName: node
   linkType: hard
 
@@ -181,7 +181,7 @@ __metadata:
   dependencies:
     "@action-validator/cli": "npm:0.6.0"
     "@action-validator/core": "npm:0.6.0"
-    "@devcontainers/cli": "npm:0.74.0"
+    "@devcontainers/cli": "npm:0.75.0"
     npm-run-all2: "npm:7.0.2"
     prettier: "npm:3.5.3"
   languageName: unknown

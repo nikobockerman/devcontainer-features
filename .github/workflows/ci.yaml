@@ -15,10 +15,10 @@ concurrency:
 jobs:
   check-feature-configs:
     uses: ./.github/workflows/check-feature-configs.yaml
-  check-format:
-    uses: ./.github/workflows/check-format.yaml
   check-github-actions:
     uses: ./.github/workflows/check-github-actions.yaml
+  check-prettier:
+    uses: nikobockerman/github-workflows/.github/workflows/check-prettier.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
   check-renovate-config:
     uses: ./.github/workflows/check-renovate-config.yaml
   check-shellcheck:

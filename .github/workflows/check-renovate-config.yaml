@@ -4,15 +4,8 @@ on:
     paths:
       - ".github/renovate.json5"
       - ".github/workflows/check-renovate-config.yaml"
-  workflow_call:
   workflow_dispatch:
 
 jobs:
-  renovate-config-validator:
-    name: Renovate config validator
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Validate renovate config
-        uses: suzuki-shunsuke/github-action-renovate-config-validator@c22827f47f4f4a5364bdba19e1fe36907ef1318e # v1.1.1
+  wf:
+    uses: nikobockerman/github-workflows/.github/workflows/check-renovate-config.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6

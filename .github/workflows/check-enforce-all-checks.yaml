@@ -1,0 +1,9 @@
+name: Check - Enforce all checks pass
+on:
+  pull_request:
+
+jobs:
+  wf:
+    uses: nikobockerman/github-workflows/.github/workflows/check-enforce-all-checks.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
+    permissions:
+      checks: read

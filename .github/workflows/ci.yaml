@@ -24,6 +24,6 @@ jobs:
   check-shellcheck:
     uses: ./.github/workflows/check-shellcheck.yaml
   check-yarn:
-    uses: ./.github/workflows/check-yarn.yaml
+    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
   test-features:
     uses: ./.github/workflows/test-features.yaml

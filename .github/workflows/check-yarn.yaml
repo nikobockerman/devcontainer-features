@@ -3,7 +3,6 @@ name: Check - Yarn and dependencies
 on:
   pull_request:
     paths:
-      - ".github/actions/yarn-project-setup/**"
       - ".github/workflows/check-yarn.yaml"
       - "package.json"
       - "yarn.lock"
@@ -11,45 +10,5 @@ on:
   workflow_dispatch:
 
 jobs:
-  duplicate-dependencies:
-    name: Check for duplicate dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup project
-        uses: ./.github/actions/yarn-project-setup
-      - name: Check for duplicate dependencies
-        run: yarn run check:yarn:dedupe
-
-  yarn-install-errors:
-    name: Validate Yarn install does not contain errors
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup project
-        uses: ./.github/actions/yarn-project-setup
-      - name: Yarn install output check
-        run: |
-          errors=$(yarn install --json | jq 'select(.displayName != "YN0000")')
-          error_count=$(echo "$errors" | jq -s 'length')
-          if [ "$error_count" -gt 0 ]; then
-            echo "Detected Yarn install errors: $error_count"
-            echo -e "$errors"
-            exit 1
-          fi
-
-  peer-requirements:
-    name: Validate yarn peer requirements
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup project
-        uses: ./.github/actions/yarn-project-setup
-      - name: Validate peer requirements are defined
-        run: |
-          reqs=$(yarn explain peer-requirements)
-          echo "$reqs" | grep '✘' || true
-          echo "$reqs" | grep -q '✘' && exit 1 || exit 0
+  wf:
+    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6

@@ -3,7 +3,7 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/node:1.6.1": {
-      "version": "22",
+      "version": "22.14.0",
       "installYarnUsingApt": false
     },
     "ghcr.io/marcozac/devcontainer-features/shellcheck:1": {},

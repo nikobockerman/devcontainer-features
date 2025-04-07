@@ -3,7 +3,6 @@ on:
   pull_request:
     paths:
       - ".github/workflows/**.yaml"
-      - ".github/actions/**"
       - "package.json"
       - "yarn.lock"
   workflow_dispatch:

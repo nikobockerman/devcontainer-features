@@ -10,4 +10,4 @@ on:
 
 jobs:
   wf:
-    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
+    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@18e084501edc3ba04f03f3dd40d7288765100e52

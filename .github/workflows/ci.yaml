@@ -16,14 +16,14 @@ jobs:
   check-feature-configs:
     uses: ./.github/workflows/check-feature-configs.yaml
   check-github-actions:
-    uses: nikobockerman/github-workflows/.github/workflows/check-github-actions.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
+    uses: nikobockerman/github-workflows/.github/workflows/check-github-actions.yaml@18e084501edc3ba04f03f3dd40d7288765100e52
   check-prettier:
-    uses: nikobockerman/github-workflows/.github/workflows/check-prettier.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
+    uses: nikobockerman/github-workflows/.github/workflows/check-prettier.yaml@18e084501edc3ba04f03f3dd40d7288765100e52
   check-renovate-config:
-    uses: nikobockerman/github-workflows/.github/workflows/check-renovate-config.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
+    uses: nikobockerman/github-workflows/.github/workflows/check-renovate-config.yaml@18e084501edc3ba04f03f3dd40d7288765100e52
   check-shellcheck:
     uses: ./.github/workflows/check-shellcheck.yaml
   check-yarn:
-    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@d32b3b6765f463389cf43ee69b0bb1a6a8fe80f6
+    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@18e084501edc3ba04f03f3dd40d7288765100e52
   test-features:
     uses: ./.github/workflows/test-features.yaml

@@ -5,6 +5,8 @@ on:
       - ".github/renovate.json5"
       - ".github/workflows/check-renovate-config.yaml"
   workflow_dispatch:
+permissions:
+  contents: read
 
 jobs:
   wf:

@@ -6,6 +6,8 @@ on:
       - ".github/workflows/check-shellcheck.yaml"
   workflow_call:
   workflow_dispatch:
+permissions:
+  contents: read
 
 jobs:
   shellcheck:

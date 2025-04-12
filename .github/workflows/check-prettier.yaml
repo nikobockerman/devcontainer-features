@@ -5,6 +5,8 @@ on:
       # These need to match rules in .prettierignore
       - "src/*/README.md"
   workflow_dispatch:
+permissions:
+  contents: read
 
 jobs:
   wf:

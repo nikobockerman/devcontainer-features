@@ -6,4 +6,4 @@ permissions:
 
 jobs:
   wf:
-    uses: nikobockerman/github-workflows/.github/workflows/check-enforce-all-checks.yaml@4f72abc1d57a1a8c8d2741d5b2dc84861eddb0cf
+    uses: nikobockerman/github-workflows/.github/workflows/check-enforce-all-checks.yaml@b216e1ae8983e72a3195846d15ae28b5f35f1083

@@ -10,4 +10,4 @@ permissions:
 
 jobs:
   wf:
-    uses: nikobockerman/github-workflows/.github/workflows/check-shellcheck.yaml@8cef1a279f360e3fe278d336a97e512d9f4a4306
+    uses: nikobockerman/github-workflows/.github/workflows/check-shellcheck.yaml@cc3e3fdec0b2379e550c1ea4059cb79f455ff668

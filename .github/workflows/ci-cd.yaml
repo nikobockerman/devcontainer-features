@@ -9,7 +9,13 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  packages: write
 
 jobs:
   ci:
     uses: ./.github/workflows/ci.yaml
+  deploy-devcontainer-cache:
+    needs: ci
+    uses: nikobockerman/github-workflows/.github/workflows/devcontainer-cache.yaml@cc3e3fdec0b2379e550c1ea4059cb79f455ff668
+    with:
+      cache-type: final

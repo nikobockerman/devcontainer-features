@@ -28,5 +28,13 @@ jobs:
   test-features:
     uses: ./.github/workflows/test-features.yaml
 
+  prebuild-devcontainer:
+    uses: nikobockerman/github-workflows/.github/workflows/devcontainer-cache.yaml@cc3e3fdec0b2379e550c1ea4059cb79f455ff668
+    permissions:
+      contents: read
+      packages: write
+    with:
+      cache-type: intermediate
   check-devcontainer:
+    needs: prebuild-devcontainer
     uses: ./.github/workflows/check-devcontainer.yaml

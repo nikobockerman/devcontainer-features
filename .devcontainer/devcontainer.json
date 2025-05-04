@@ -1,6 +1,7 @@
 {
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "ghcr.io/nikobockerman/devcontainer-features-devcontainer:cache"
   },
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},

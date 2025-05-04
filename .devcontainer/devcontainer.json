@@ -14,7 +14,6 @@
   },
   "onCreateCommand": "yarn && yarn dlx @yarnpkg/sdks vscode",
   "updateContentCommand": "yarn",
-  "remoteUser": "node",
   "customizations": {
     "vscode": {
       "settings": {

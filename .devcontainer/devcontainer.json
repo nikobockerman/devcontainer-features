@@ -1,5 +1,8 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "ghcr.io/nikobockerman/devcontainer-features-devcontainer:cache"
+  },
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/node:1.6.1": {
@@ -14,7 +17,6 @@
   },
   "onCreateCommand": "yarn && yarn dlx @yarnpkg/sdks vscode",
   "updateContentCommand": "yarn",
-  "remoteUser": "node",
   "customizations": {
     "vscode": {
       "settings": {

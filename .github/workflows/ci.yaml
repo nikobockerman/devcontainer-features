@@ -1,14 +1,9 @@
 name: CI
 on:
-  push:
-    branches:
-      - main
   pull_request:
     paths:
       - ".github/workflows/ci.yaml"
-  schedule:
-    # Run every Monday at 00:30 UTC
-    - cron: "30 0 * * 1"
+  workflow_call:
   workflow_dispatch:
 permissions:
   contents: read

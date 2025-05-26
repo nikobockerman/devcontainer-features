@@ -13,7 +13,7 @@
     "@action-validator/cli": "0.6.0",
     "@action-validator/core": "0.6.0",
     "@devcontainers/cli": "0.76.0",
-    "npm-run-all2": "8.0.3",
+    "npm-run-all2": "8.0.4",
     "prettier": "3.5.3"
   },
   "engines": {

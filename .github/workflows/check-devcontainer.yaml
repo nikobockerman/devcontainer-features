@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   wf:
-    uses: nikobockerman/github-workflows/.github/workflows/check-devcontainer.yaml@cc3e3fdec0b2379e550c1ea4059cb79f455ff668
+    uses: nikobockerman/github-workflows/.github/workflows/check-devcontainer.yaml@1d0ee1b00422598a785e5620925ce2ec0de2b6d3
     with:
       runCmd: |
         for feature in $(ls src); do

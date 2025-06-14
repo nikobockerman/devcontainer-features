@@ -5,7 +5,7 @@
   },
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/node:1.6.2": {
+    "ghcr.io/devcontainers/features/node:1.6.3": {
       "version": "22.16.0",
       "installYarnUsingApt": false
     },

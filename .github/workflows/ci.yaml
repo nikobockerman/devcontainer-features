@@ -30,3 +30,19 @@ jobs:
     uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@cefbbbefc1216ea1d0a822149b313c725c5f820b
   test-features:
     uses: ./.github/workflows/test-features.yaml
+
+  check:
+    needs:
+      - check-feature-configs
+      - check-github-actions
+      - check-prettier
+      - check-renovate-config
+      - check-shellcheck
+      - check-yarn
+      - test-features
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
+        with:
+          jobs: ${{ toJSON(needs) }}

@@ -1,0 +1,30 @@
+[tasks.check]
+depends = [
+    "check:prettier",
+    "check:renovateconfig",
+    "check:shellcheck"
+]
+
+[tasks."check:prettier"]
+run = "prettier --check ."
+
+[tasks."check:renovateconfig"]
+run = "renovate-config-validator --strict"
+tools."npm:renovate" = "latest"
+
+[tasks."check:shellcheck"]
+run = "shellcheck $(git ls-files | grep '.sh$')"
+
+[tasks.fix]
+depends = [
+    "fix:prettier"
+]
+
+[tasks."fix:prettier"]
+run = "prettier --write --cache-location .prettiercache ."
+
+[tools]
+node = "22"
+"npm:@devcontainers/cli" = "0.76.0"
+"npm:prettier" = "3.5.3"
+shellcheck = "0.10.0"

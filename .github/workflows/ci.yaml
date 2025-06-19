@@ -35,8 +35,6 @@ jobs:
     uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@cefbbbefc1216ea1d0a822149b313c725c5f820b
     with:
       task: check:shellcheck
-  check-yarn:
-    uses: nikobockerman/github-workflows/.github/workflows/check-yarn.yaml@cefbbbefc1216ea1d0a822149b313c725c5f820b
   test-features:
     needs: mise-cache
     uses: ./.github/workflows/test-features.yaml
@@ -47,7 +45,6 @@ jobs:
       - check-prettier
       - check-renovate-config
       - check-shellcheck
-      - check-yarn
       - test-features
     if: always()
     runs-on: ubuntu-latest

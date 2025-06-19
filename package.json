@@ -1,7 +1,6 @@
 {
   "scripts": {
     "fix:prettier": "yarn run check:prettier --write",
-    "check:github-actions": "git ls-files '.github/**.yaml' | xargs -t -I {} action-validator {}",
     "check:prettier": "prettier --check .",
     "check:renovateconfig": "yarn dlx --package=renovate --quiet renovate-config-validator --strict",
     "check:yarn:dedupe": "yarn dedupe --check",
@@ -10,8 +9,6 @@
     "all": "yarn install && yarn run check"
   },
   "devDependencies": {
-    "@action-validator/cli": "0.6.0",
-    "@action-validator/core": "0.6.0",
     "@devcontainers/cli": "0.76.0",
     "npm-run-all2": "8.0.4",
     "prettier": "3.5.3"

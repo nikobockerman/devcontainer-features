@@ -1,0 +1,15 @@
+[tools.node]
+version = "22.16.0"
+backend = "core:node"
+
+[tools."npm:@devcontainers/cli"]
+version = "0.76.0"
+backend = "npm:@devcontainers/cli"
+
+[tools."npm:prettier"]
+version = "3.5.3"
+backend = "npm:prettier"
+
+[tools.shellcheck]
+version = "0.10.0"
+backend = "ubi:koalaman/shellcheck"

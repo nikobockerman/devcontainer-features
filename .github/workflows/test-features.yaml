@@ -1,14 +1,5 @@
 name: Test - Features
 on:
-  pull_request:
-    paths:
-      - ".github/workflows/test-features.yaml"
-      - "package.json"
-      - "yarn.lock"
-      - "src/**"
-      - "!src/**/README.md"
-      - "!src/**/NOTES.md"
-      - "test/**"
   workflow_call:
   workflow_dispatch:
 permissions:

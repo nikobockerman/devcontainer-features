@@ -26,5 +26,5 @@ run = "prettier --write --cache-location .prettiercache ."
 [tools]
 node = "22"
 "npm:@devcontainers/cli" = "0.77.0"
-"npm:prettier" = "3.6.0"
+"npm:prettier" = "3.6.2"
 shellcheck = "0.10.0"

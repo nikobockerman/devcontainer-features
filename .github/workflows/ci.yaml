@@ -17,22 +17,22 @@ concurrency:
 
 jobs:
   mise-cache:
-    uses: nikobockerman/github-workflows/.github/workflows/mise-prepare-cache.yaml@d98b507d36c8d354ddd352252ad5fcc757221765 # v1.0.4
+    uses: nikobockerman/github-workflows/.github/workflows/mise-prepare-cache.yaml@a8b357634d768158a9ed9ccdfc30c4a445023e61 # v1.0.5
   check-feature-configs:
     uses: ./.github/workflows/check-feature-configs.yaml
   check-prettier:
     needs: mise-cache
-    uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@d98b507d36c8d354ddd352252ad5fcc757221765 # v1.0.4
+    uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@a8b357634d768158a9ed9ccdfc30c4a445023e61 # v1.0.5
     with:
       task: check:prettier
   check-renovate-config:
     needs: mise-cache
-    uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@d98b507d36c8d354ddd352252ad5fcc757221765 # v1.0.4
+    uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@a8b357634d768158a9ed9ccdfc30c4a445023e61 # v1.0.5
     with:
       task: check:renovateconfig
   check-shellcheck:
     needs: mise-cache
-    uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@d98b507d36c8d354ddd352252ad5fcc757221765 # v1.0.4
+    uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@a8b357634d768158a9ed9ccdfc30c4a445023e61 # v1.0.5
     with:
       task: check:shellcheck
   test-features:

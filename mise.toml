@@ -1,3 +1,8 @@
+[tools]
+"npm:@devcontainers/cli" = "0.80.0"
+prettier = "3.6.2"
+shellcheck = "0.11.0"
+
 [tasks.check]
 depends = [
     "check:prettier",
@@ -22,9 +27,3 @@ depends = [
 
 [tasks."fix:prettier"]
 run = "prettier --write --cache-location .prettiercache ."
-
-[tools]
-node = "22"
-"npm:@devcontainers/cli" = "0.80.0"
-"npm:prettier" = "3.6.2"
-shellcheck = "0.11.0"

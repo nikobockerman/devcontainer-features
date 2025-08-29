@@ -1,0 +1,39 @@
+name: mise project setup
+description: Setup mise and tools for project
+inputs:
+  cache-mode:
+    description: "Mode of operation regarding cache: 'prepare' or 'use'"
+    required: false
+    default: use
+
+runs:
+  using: composite
+  steps:
+    - id: init
+
+      env:
+        CACHE_MODE: ${{ inputs.cache-mode }}
+        # renovate: datasource=github-releases depName=jdx/mise
+        MISE_VERSION: v2025.8.20
+      run: |
+        # Initialize mise-project-setup action
+        "${GITHUB_ACTION_PATH}/init.sh"
+      shell: bash
+
+    - name: Install mise
+      uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+      with:
+        cache_save: ${{ inputs.cache-mode == 'prepare' }}
+        version: ${{ steps.init.outputs.mise-version }}
+
+    - run: |
+        # Ensure tools are installed properly
+        mise ls --current
+        count=$(mise ls --current --missing --no-header | wc -l)
+        if [ $count -gt 0 ]; then
+          echo "::error::Count of missing tools: $count"
+          exit 1
+        else
+          echo "Result of check: no missing tools"
+        fi
+      shell: bash

@@ -16,34 +16,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
       - name: Publish Features
         uses: devcontainers/action@1082abd5d2bf3a11abccba70eef98df068277772 # v1.4.3
-        with:
-          publish-features: "true"
-          base-path-to-features: "./src"
-          generate-docs: "true"
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          base-path-to-features: "./src"
+          generate-docs: "true"
+          publish-features: "true"
 
       - name: Create PR for Documentation
-        id: push_image_info
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
-          echo "Start."
-          # Configure git and Push updates
+          # Configure git
           git config --global user.email github-actions[bot]@users.noreply.github.com
           git config --global user.name github-actions[bot]
           git config pull.rebase false
+
+          # Create branch
           branch=automated-documentation-update-$GITHUB_RUN_ID
-          git checkout -b $branch
-          message='Automated documentation update'
-          # Add / update and commit
-          git add */**/README.md
-          git commit -m 'Automated documentation update [skip ci]' || export NO_UPDATES=true
-          # Push
-          if [ "$NO_UPDATES" != "true" ] ; then
+          git checkout -b "$branch"
+
+          # Stage changes
+          git add src/*/README.md
+
+          # Commit
+          message="Automated documentation update"
+          has_updates=true
+          git commit -m "$message" || has_updates=false
+
+          # Push if there were changes
+          if [ "$has_updates" = "true" ]; then
               git push origin "$branch"
               gh pr create --title "$message" --body "$message"
           fi
+        shell: bash

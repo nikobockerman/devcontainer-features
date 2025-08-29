@@ -18,35 +18,40 @@ concurrency:
 jobs:
   mise-cache:
     uses: nikobockerman/github-workflows/.github/workflows/mise-prepare-cache.yaml@fa88c80000496ad363c48981a5090e1fb53cf7a9 # v1.0.22
+
   check-feature-configs:
     uses: ./.github/workflows/check-feature-configs.yaml
+
   check-prettier:
     needs: mise-cache
     uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@fa88c80000496ad363c48981a5090e1fb53cf7a9 # v1.0.22
     with:
       task: check:prettier
+
   check-renovate-config:
     needs: mise-cache
     uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@fa88c80000496ad363c48981a5090e1fb53cf7a9 # v1.0.22
     with:
       task: check:renovateconfig
+
   check-shellcheck:
     needs: mise-cache
     uses: nikobockerman/github-workflows/.github/workflows/mise-task.yaml@fa88c80000496ad363c48981a5090e1fb53cf7a9 # v1.0.22
     with:
       task: check:shellcheck
+
   test-features:
     needs: mise-cache
     uses: ./.github/workflows/test-features.yaml
 
   check:
+    if: always()
     needs:
       - check-feature-configs
       - check-prettier
       - check-renovate-config
       - check-shellcheck
       - test-features
-    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2

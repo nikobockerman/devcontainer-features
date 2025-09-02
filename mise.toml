@@ -1,5 +1,5 @@
 [tools]
-"npm:@devcontainers/cli" = "0.80.0"
+"npm:@devcontainers/cli" = "0.80.1"
 prettier = "3.6.2"
 shellcheck = "0.11.0"
 

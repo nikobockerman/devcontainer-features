@@ -33,6 +33,6 @@ fi
 
 # Create new fish data directory as symlink to the mounted volume
 mkdir -p "$user_share_dir"
-chown "$USER":"$USER" -R "$user_local_dir"
+sudo chown "$USER":"$USER" -R "$user_local_dir"
 ln -s "$mount_point" "$user_fish_data_dir"
-chown -h "$USER":"$USER" "$user_fish_data_dir"
+sudo chown -h "$USER":"$USER" "$user_fish_data_dir"

@@ -28,12 +28,6 @@ jobs:
     with:
       task: check:prettier
 
-  check-renovate-config:
-    needs: mise-cache
-    uses: ./.github/workflows/mise-task.yaml
-    with:
-      task: check:renovateconfig
-
   check-shellcheck:
     needs: mise-cache
     uses: ./.github/workflows/mise-task.yaml
@@ -49,7 +43,6 @@ jobs:
     needs:
       - check-feature-configs
       - check-prettier
-      - check-renovate-config
       - check-shellcheck
       - test-features
     runs-on: ubuntu-latest

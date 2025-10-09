@@ -4,7 +4,7 @@
     "config:best-practices",
     ":pinAllExceptPeerDependencies",
     "customManagers:githubActionsVersions",
-    "npm:unpublishSafe",
+    "security:minimumReleaseAgeNpm",
   ],
 
   lockFileMaintenance: {

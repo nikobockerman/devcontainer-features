@@ -15,9 +15,11 @@
 
   packageRules: [
     {
-      description: "Update mise versions after 1 day delay to avoid errors installing very fresh version - https://github.com/jdx/mise/issues/2314",
+      description: "Mise package settings",
       matchPackageNames: ["jdx/mise"],
-      minimumReleaseAge: "1 day",
+
+      automerge: true,
+      minimumReleaseAge: "1 day", // 1 day delay to avoid errors installing very fresh version
     },
   ],
 }

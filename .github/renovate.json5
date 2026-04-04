@@ -4,6 +4,7 @@
     "config:best-practices",
     ":pinAllExceptPeerDependencies",
     "customManagers:githubActionsVersions",
+    "schedule:monthly",
     "security:minimumReleaseAgeNpm",
   ],
 
@@ -17,8 +18,6 @@
     {
       description: "Mise package settings",
       matchPackageNames: ["jdx/mise"],
-
-      automerge: true,
       minimumReleaseAge: "1 day", // 1 day delay to avoid errors installing very fresh version
     },
   ],

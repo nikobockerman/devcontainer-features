@@ -1,6 +1,6 @@
 [tools]
 "npm:@devcontainers/cli" = "0.87.0"
-prettier = "3.8.3"
+prettier = "3.8.5"
 shellcheck = "0.11.0"
 
 [tasks.check]

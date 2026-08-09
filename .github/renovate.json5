@@ -5,20 +5,37 @@
     ":pinAllExceptPeerDependencies",
     "customManagers:githubActionsVersions",
     "schedule:monthly",
-    "security:minimumReleaseAgeNpm",
   ],
+
+  // Also pulled in nested via `config:best-practices`. It sets 3 days in a
+  // packageRule, which would override the top-level minimumReleaseAge.
+  ignorePresets: ["security:minimumReleaseAgeNpm"],
 
   lockFileMaintenance: {
     enabled: true,
   },
+  minimumReleaseAge: "14 days",
   semanticCommits: "disabled",
   separateMinorPatch: true,
 
   packageRules: [
     {
-      description: "Mise package settings",
-      matchPackageNames: ["jdx/mise"],
-      minimumReleaseAge: "1 day", // 1 day delay to avoid errors installing very fresh version
+      description: "Skip Minimum Release Age for update types that carry no usable release timestamp",
+      matchUpdateTypes: [
+        "bump",
+        "lockFileMaintenance",
+        "lockfileUpdate",
+        "pin",
+        "replacement",
+        "rollback",
+      ],
+      minimumReleaseAge: null,
+    },
+    {
+      // Without this, a pinned runner version would be held back forever, silently.
+      description: "Exempt github-runners, which provides no release timestamps to age against",
+      matchDatasources: ["github-runners"],
+      minimumReleaseAge: null,
     },
   ],
 }

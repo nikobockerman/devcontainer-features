@@ -11,6 +11,7 @@
   // packageRule, which would override the top-level minimumReleaseAge.
   ignorePresets: ["security:minimumReleaseAgeNpm"],
 
+  configMigration: true,
   lockFileMaintenance: {
     enabled: true,
   },

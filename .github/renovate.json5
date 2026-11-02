@@ -4,24 +4,22 @@
     "config:best-practices",
     ":pinAllExceptPeerDependencies",
     "customManagers:githubActionsVersions",
-    "schedule:monthly",
   ],
 
   // Also pulled in nested via `config:best-practices`. It sets 3 days in a
   // packageRule, which would override the top-level minimumReleaseAge.
   ignorePresets: ["security:minimumReleaseAgeNpm"],
 
-  configMigration: true,
-  lockFileMaintenance: {
-    enabled: true,
-  },
   minimumReleaseAge: "14 days",
+  minimumReleaseAgeBehaviour: "timestamp-optional",
+  prHourlyLimit: 4,
+  schedule: ["* * 1 * *"], // the whole first day of the month
   semanticCommits: "disabled",
   separateMinorPatch: true,
 
   packageRules: [
     {
-      description: "Skip Minimum Release Age for update types that carry no usable release timestamp",
+      description: "Update types that pull in no new upstream code, so release age does not apply",
       matchUpdateTypes: [
         "bump",
         "lockFileMaintenance",
@@ -33,10 +31,13 @@
       minimumReleaseAge: null,
     },
     {
-      // Without this, a pinned runner version would be held back forever, silently.
-      description: "Exempt github-runners, which provides no release timestamps to age against",
-      matchDatasources: ["github-runners"],
-      minimumReleaseAge: null,
+      description: "Track mise as a single stream of releases",
+      matchPackageNames: ["jdx/mise"],
+
+      // mise uses CalVer (YEAR.MONTH.COUNTER), not SemVer. Collapse the
+      // year/month/counter splits into one branch that tracks the latest release.
+      separateMajorMinor: false,
+      separateMinorPatch: false, // override repo-wide separateMinorPatch: true
     },
   ],
 }

@@ -4,7 +4,7 @@ set -e
 mount_point="/mnt/yarn-persistent-cache"
 
 sudo() {
-    if [ "$USER" = root ]; then
+    if [ "$(id -u)" -eq 0 ]; then
         "$@"
     else
         command sudo "$@"
@@ -12,4 +12,4 @@ sudo() {
 }
 
 # Prepare mounted volume permissions
-sudo chown "$USER":"$USER" "$mount_point"
+sudo chown "$(id -un)":"$(id -gn)" "$mount_point"

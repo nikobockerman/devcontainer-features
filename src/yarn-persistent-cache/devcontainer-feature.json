@@ -1,7 +1,7 @@
 {
   "name": "Yarn - persistent cache",
   "id": "yarn-persistent-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A feature that provides persistent cache for Yarn. Compatible when yarn project is used with global cache (default), not compatible with Zero-installs projects.",
   "containerEnv": {
     "YARN_ENABLE_GLOBAL_CACHE": "false",

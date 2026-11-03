@@ -22,3 +22,7 @@ depends = [
 
 [tasks."fix:prettier"]
 run = "prettier --write --cache-location .prettiercache ."
+
+[tasks."test:rebuild"]
+description = "Check that a feature's data survives a container rebuild"
+run = "scripts/test-rebuild.sh"

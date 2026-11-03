@@ -1,0 +1,23 @@
+{
+  "fish_history": {
+    "build": { "dockerfile": "Dockerfile" },
+    "features": { "fish-persistent-data": {} }
+  },
+  "root_owned_file_in_local": {
+    "build": { "dockerfile": "Dockerfile" },
+    "features": { "fish-persistent-data": {} }
+  },
+  "existing_data_dir": {
+    "build": { "dockerfile": "Dockerfile" },
+    "features": { "fish-persistent-data": {} }
+  },
+  "v1_layout_migration": {
+    "build": { "dockerfile": "Dockerfile" },
+    "features": { "fish-persistent-data": {} }
+  },
+  "root_without_sudo": {
+    "image": "debian:trixie-slim",
+    "remoteUser": "root",
+    "features": { "fish-persistent-data": {} }
+  }
+}

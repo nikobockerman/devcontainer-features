@@ -1,0 +1,16 @@
+{
+  "poetry_install": {
+    "image": "mcr.microsoft.com/devcontainers/python:3",
+    "features": { "poetry-persistent-cache": {} }
+  },
+  "root_without_sudo": {
+    "image": "debian:trixie-slim",
+    "remoteUser": "root",
+    "features": { "poetry-persistent-cache": {} }
+  },
+  "user_group_differs_from_name": {
+    "build": { "dockerfile": "Dockerfile" },
+    "remoteUser": "dev",
+    "features": { "poetry-persistent-cache": {} }
+  }
+}

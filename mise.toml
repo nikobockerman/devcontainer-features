@@ -15,6 +15,10 @@ run = "prettier --check ."
 [tasks."check:shellcheck"]
 run = "shellcheck $(git ls-files | grep '.sh$')"
 
+[tasks."test:rebuild"]
+description = "Check that a feature's data survives a container rebuild"
+run = "scripts/test-rebuild.sh"
+
 [tasks.fix]
 depends = [
     "fix:prettier"

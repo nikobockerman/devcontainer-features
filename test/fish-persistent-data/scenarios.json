@@ -1,0 +1,29 @@
+{
+  "fish_history": {
+    "build": { "dockerfile": "Dockerfile" },
+    "features": { "fish-persistent-data": {} }
+  },
+  // updateRemoteUserUID is disabled where a scenario prepares file ownership
+  // in its Dockerfile. On Linux hosts the CLI otherwise changes the user's UID
+  // to match the host and chowns the home directory recursively, which would
+  // undo the prepared state.
+  "root_owned_file_in_local": {
+    "build": { "dockerfile": "Dockerfile" },
+    "updateRemoteUserUID": false,
+    "features": { "fish-persistent-data": {} }
+  },
+  "existing_data_dir": {
+    "build": { "dockerfile": "Dockerfile" },
+    "features": { "fish-persistent-data": {} }
+  },
+  "v1_layout_migration": {
+    "build": { "dockerfile": "Dockerfile" },
+    "updateRemoteUserUID": false,
+    "features": { "fish-persistent-data": {} }
+  },
+  "root_without_sudo": {
+    "image": "debian:trixie-slim",
+    "remoteUser": "root",
+    "features": { "fish-persistent-data": {} }
+  }
+}

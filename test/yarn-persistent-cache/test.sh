@@ -66,6 +66,10 @@ check "validate mountpoint group" test "$(stat -c '%G' "$mountpoint")" = "$group
 perm=$(stat -c '%a' "$mountpoint")
 check "validate mountpoint permissions" test "${perm:0:1}" = 7
 
+probe=$mountpoint/write-probe-$RANDOM
+check "validate user can write to the volume" touch "$probe"
+rm -f "$probe"
+
 # Report result
 # If any of the checks above exited with a non-zero exit code, the test will fail.
 reportResults

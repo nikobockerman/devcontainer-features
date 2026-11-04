@@ -13,7 +13,7 @@ depends = [
 run = "prettier --check ."
 
 [tasks."check:shellcheck"]
-run = "shellcheck $(git ls-files | grep '.sh$')"
+run = "git ls-files -z -- '*.sh' | xargs -0 shellcheck"
 
 [tasks.fix]
 depends = [

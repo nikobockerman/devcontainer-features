@@ -4,21 +4,27 @@
 # `devcontainer features test` harness cannot do: it gets one container per
 # test and the test scripts run inside it.
 #
-# Uses the fixture in test/<feature>/rebuild/: brings the dev container up,
-# runs before.sh in it, recreates the container with
+# Uses the fixture in test/<feature>/<fixture>/ (rebuild/ by default): brings
+# the dev container up, runs before.sh in it, recreates the container with
 # `devcontainer up --remove-existing-container` while keeping its volumes
 # (what "Rebuild Container" does in VS Code and other dev container tools),
 # and runs after.sh in the new container. Both scripts get a per-run
 # REBUILD_TOKEN so that a volume left over from an earlier run cannot pass
 # the test.
 #
-# Usage: scripts/test-rebuild.sh <feature>
+# If the fixture has a before.devcontainer.json, the first container is
+# created from it instead, for example to start from an earlier published
+# version of the feature. It is copied over devcontainer.json rather than
+# passed with --config, because the CLI derives the volume name from the
+# config file's path and the rebuilt container must get the same volume.
+#
+# Usage: scripts/test-rebuild.sh <feature> [fixture]
 
 set -euo pipefail
 
-feature=${1:?usage: $0 <feature>}
+feature=${1:?usage: $0 <feature> [fixture]}
 repo=$(cd "$(dirname "$0")/.." && pwd)
-fixture=$repo/test/$feature/rebuild
+fixture=$repo/test/$feature/${2:-rebuild}
 if [ ! -d "$fixture" ]; then
     echo "No rebuild fixture at $fixture" >&2
     exit 1
@@ -97,6 +103,9 @@ cp -R "$repo/src/$feature" "$ws/.devcontainer/$feature"
 cp "$repo/scripts/rebuild-lib.sh" "$ws/.devcontainer/"
 
 echo "::group::Create container and write data"
+if [ -f "$fixture/before.devcontainer.json" ]; then
+    cp "$fixture/before.devcontainer.json" "$ws/.devcontainer/devcontainer.json"
+fi
 up
 first=$(current_container)
 # The rebuild moves the image names to the new build, so cleanup could no
@@ -107,6 +116,7 @@ run_in_container before.sh
 echo "::endgroup::"
 
 echo "::group::Rebuild container and check data"
+cp "$fixture/devcontainer.json" "$ws/.devcontainer/devcontainer.json"
 up --remove-existing-container
 second=$(current_container)
 run_in_container after.sh

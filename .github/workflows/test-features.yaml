@@ -63,6 +63,11 @@ jobs:
           - fish-persistent-data
           - poetry-persistent-cache
           - yarn-persistent-cache
+        fixture:
+          - rebuild
+        include:
+          - feature: fish-persistent-data
+            fixture: upgrade-from-v1
 
     steps:
       - name: Checkout
@@ -71,11 +76,12 @@ jobs:
       - name: Install tools
         uses: ./.github/actions/mise-project-setup
 
-      - name: Testing that '${{ matrix.feature }}' data survives a rebuild
+      - name: Testing '${{ matrix.feature }}' data across a rebuild with '${{ matrix.fixture }}'
 
         env:
           FEATURE: ${{ matrix.feature }}
-        run: mise run test:rebuild "$FEATURE"
+          FIXTURE: ${{ matrix.fixture }}
+        run: mise run test:rebuild "$FEATURE" "$FIXTURE"
 
   test-global:
     runs-on: ubuntu-latest

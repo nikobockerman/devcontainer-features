@@ -15,6 +15,11 @@
     "updateRemoteUserUID": false,
     "features": { "fish-persistent-data": {} }
   },
+  "unusable_share_dir": {
+    "build": { "dockerfile": "Dockerfile" },
+    "remoteUser": "vscode",
+    "features": { "fish-persistent-data": {} }
+  },
   "existing_data_dir": {
     "build": { "dockerfile": "Dockerfile" },
     "remoteUser": "vscode",

@@ -1,0 +1,6 @@
+{
+  "build": { "dockerfile": "Dockerfile" },
+  "features": {
+    "ghcr.io/nikobockerman/devcontainer-features/fish-persistent-data:1": {}
+  }
+}

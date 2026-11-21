@@ -1,0 +1,21 @@
+{
+  "poetry_install": {
+    "image": "mcr.microsoft.com/devcontainers/python:3",
+    "features": { "poetry-persistent-cache": {} }
+  },
+  // poetry_install uses the latest poetry, this the last 1.x release.
+  "poetry_1_x_install": {
+    "image": "mcr.microsoft.com/devcontainers/python:3",
+    "features": { "poetry-persistent-cache": {} }
+  },
+  "root_without_sudo": {
+    "image": "debian:trixie-slim",
+    "remoteUser": "root",
+    "features": { "poetry-persistent-cache": {} }
+  },
+  "user_group_differs_from_name": {
+    "build": { "dockerfile": "Dockerfile" },
+    "remoteUser": "dev",
+    "features": { "poetry-persistent-cache": {} }
+  }
+}

@@ -1,0 +1,2 @@
+# Follow `# shellcheck source=` directives so test scripts can share checks-lib.sh
+external-sources=true

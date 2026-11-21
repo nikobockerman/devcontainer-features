@@ -68,6 +68,8 @@ jobs:
         include:
           - feature: fish-persistent-data
             fixture: upgrade-from-v1
+          - feature: fish-persistent-data
+            fixture: upgrade-from-v1-without-history
 
     steps:
       - name: Checkout

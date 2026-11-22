@@ -30,6 +30,11 @@
     "remoteUser": "vscode",
     "features": { "fish-persistent-data": {} }
   },
+  "existing_data_dir_link_or_file": {
+    "image": "mcr.microsoft.com/devcontainers/base:debian",
+    "remoteUser": "vscode",
+    "features": { "fish-persistent-data": {} }
+  },
   "root_without_sudo": {
     "image": "debian:trixie-slim",
     "remoteUser": "root",

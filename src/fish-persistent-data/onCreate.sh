@@ -66,18 +66,27 @@ if [ -d "$prev_fish_persistent_dir" ]; then
     rmdir "$prev_fish_persistent_dir"
 fi
 
-# Keep an existing fish data directory aside under the first free name
-if [ -d "$user_fish_data_dir" ]; then
-    aside_dir=$user_fish_data_dir-old
-    n=0
-    while [ -e "$aside_dir" ] || [ -L "$aside_dir" ]; do
-        n=$((n + 1))
-        aside_dir=$user_fish_data_dir-old.$n
-    done
-    echo "Moving existing $user_fish_data_dir to $aside_dir"
-    mv "$user_fish_data_dir" "$aside_dir"
-fi
+if [ -L "$user_fish_data_dir" ] && [ "$(readlink "$user_fish_data_dir")" = "$mount_point" ]; then
+    echo "$user_fish_data_dir already points to $mount_point"
+else
+    # Keep whatever is at the fish data directory path aside under the first
+    # free name
+    if [ -e "$user_fish_data_dir" ] || [ -L "$user_fish_data_dir" ]; then
+        aside_path=$user_fish_data_dir-old
+        n=0
+        while [ -e "$aside_path" ] || [ -L "$aside_path" ]; do
+            n=$((n + 1))
+            aside_path=$user_fish_data_dir-old.$n
+        done
+        if [ -L "$user_fish_data_dir" ]; then
+            echo "Moving existing symlink $user_fish_data_dir -> $(readlink "$user_fish_data_dir") to $aside_path"
+        else
+            echo "Moving existing $user_fish_data_dir to $aside_path"
+        fi
+        mv "$user_fish_data_dir" "$aside_path"
+    fi
 
-# Create new fish data directory as symlink to the mounted volume
-mkdir -p "$user_share_dir"
-ln -s "$mount_point" "$user_fish_data_dir"
+    # Create new fish data directory as symlink to the mounted volume
+    mkdir -p "$user_share_dir"
+    ln -s "$mount_point" "$user_fish_data_dir"
+fi

@@ -66,9 +66,16 @@ if [ -d "$prev_fish_persistent_dir" ]; then
     rmdir "$prev_fish_persistent_dir"
 fi
 
-# Rename theoretical old fish data directory
+# Keep an existing fish data directory aside under the first free name
 if [ -d "$user_fish_data_dir" ]; then
-    mv "$user_fish_data_dir" "$user_fish_data_dir-old"
+    aside_dir=$user_fish_data_dir-old
+    n=0
+    while [ -e "$aside_dir" ] || [ -L "$aside_dir" ]; do
+        n=$((n + 1))
+        aside_dir=$user_fish_data_dir-old.$n
+    done
+    echo "Moving existing $user_fish_data_dir to $aside_dir"
+    mv "$user_fish_data_dir" "$aside_dir"
 fi
 
 # Create new fish data directory as symlink to the mounted volume

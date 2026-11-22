@@ -14,6 +14,41 @@ sudo() {
     fi
 }
 
+# Fail early with a clear message if the user cannot create the data dir symlink
+user=$(id -un)
+fail() {
+    {
+        echo "fish-persistent-data: $1"
+        echo "The feature needs to create $user_fish_data_dir as $user."
+        shift
+        printf '%s\n' "$@"
+    } >&2
+    exit 1
+}
+dir_to_write=$user_share_dir
+while [ ! -e "$dir_to_write" ] && [ ! -L "$dir_to_write" ]; do
+    dir_to_write=$(dirname "$dir_to_write")
+done
+if [ ! -d "$dir_to_write" ]; then
+    if [ -L "$dir_to_write" ]; then
+        problem="$dir_to_write is a symlink to $(readlink "$dir_to_write"), which is not a directory."
+    else
+        problem="$dir_to_write is not a directory."
+    fi
+    fail "$problem" \
+        "Something in the image created it. Replace it with a directory that $user can write to."
+elif [ ! -w "$dir_to_write" ]; then
+    owner=$(stat -L -c '%U' "$dir_to_write")
+    if [ "$owner" = root ]; then
+        fail "$dir_to_write is not writable by $user (owner: root)." \
+            "Something in the image, such as a feature or Dockerfile step that runs as root, created it." \
+            "Create it as $user or chown it to $user in the image."
+    else
+        fail "$dir_to_write is not writable by $user (owner: $owner, mode: $(stat -L -c '%A' "$dir_to_write"))." \
+            "Make it writable by $user in the image."
+    fi
+fi
+
 # Prepare mounted volume permissions
 sudo chown "$(id -un)":"$(id -gn)" "$mount_point"
 

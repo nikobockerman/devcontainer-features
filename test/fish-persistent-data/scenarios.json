@@ -25,6 +25,11 @@
     "remoteUser": "vscode",
     "features": { "fish-persistent-data": {} }
   },
+  "existing_old_data_dir": {
+    "build": { "dockerfile": "Dockerfile" },
+    "remoteUser": "vscode",
+    "features": { "fish-persistent-data": {} }
+  },
   "root_without_sudo": {
     "image": "debian:trixie-slim",
     "remoteUser": "root",

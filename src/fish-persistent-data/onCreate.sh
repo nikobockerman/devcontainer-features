@@ -52,7 +52,8 @@ fi
 # Prepare mounted volume permissions
 sudo chown "$(id -un)":"$(id -gn)" "$mount_point"
 
-# Migrate fish data from location used in versions 1.0.* to new location
+# Migrate from versions 1.0.*: move fish data from the old location to the new
+# one and remove the old data dir symlink
 prev_fish_persistent_dir="$mount_point"/fish
 if [ -d "$prev_fish_persistent_dir" ]; then
     echo "Migrating data from: $prev_fish_persistent_dir to $mount_point"
@@ -64,6 +65,10 @@ if [ -d "$prev_fish_persistent_dir" ]; then
         fi
     done
     rmdir "$prev_fish_persistent_dir"
+fi
+if [ -L "$user_fish_data_dir" ] && [ "$(readlink "$user_fish_data_dir")" = "$prev_fish_persistent_dir" ]; then
+    echo "Removing symlink $user_fish_data_dir -> $prev_fish_persistent_dir left by version 1.0.*"
+    rm "$user_fish_data_dir"
 fi
 
 if [ -L "$user_fish_data_dir" ] && [ "$(readlink "$user_fish_data_dir")" = "$mount_point" ]; then

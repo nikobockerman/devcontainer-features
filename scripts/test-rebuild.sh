@@ -10,16 +10,18 @@
 # (what "Rebuild Container" does in VS Code and other dev container tools),
 # and runs after.sh in the new container. Both scripts get a per-run
 # REBUILD_TOKEN so that a volume left over from an earlier run cannot pass
-# the test. The fixture's devcontainer.json names the feature "@FEATURE@",
-# a placeholder that the script fills in for each container with the
-# version that container uses.
+# the test, and REBUILD_STEP: 0 for before.sh, and for after.sh the number
+# of the rebuild it runs after, starting from 1. The fixture's
+# devcontainer.json names the feature "@FEATURE@", a placeholder that the
+# script fills in for each container with the version that container uses.
 #
 # To test an upgrade, name published versions of the feature after the
 # fixture. The first container then uses the first of them, each further one
 # replaces the feature in a rebuild in turn, and the last rebuild uses the
-# version in the repository. Only the first container runs before.sh and
-# only the last one runs after.sh, so the data has to survive every step in
-# between. A version is any tag that is published for the feature, such as
+# version in the repository. The first container runs before.sh and every
+# later one runs after.sh, so each version has to find the data that the
+# versions before it wrote, and can add its own for the versions after it to
+# find. A version is any tag that is published for the feature, such as
 # 2.0.3 or 1 (the newest 1.x).
 #
 # Usage: scripts/test-rebuild.sh <feature> [fixture [version...]]
@@ -78,8 +80,10 @@ up() {
     devcontainer up --workspace-folder "$ws" "$@"
 }
 
+# Runs fixture script $1 in the container, as rebuild step $2.
 run_in_container() {
-    devcontainer exec --workspace-folder "$ws" --remote-env "REBUILD_TOKEN=$token" \
+    devcontainer exec --workspace-folder "$ws" \
+        --remote-env "REBUILD_TOKEN=$token" --remote-env "REBUILD_STEP=$2" \
         bash ".devcontainer/$1"
 }
 
@@ -151,25 +155,24 @@ volumes=("$volume")
 # longer find this build's images by name. Newest first, like
 # workspace_images, also across builds.
 images="$(workspace_images) $images"
-run_in_container before.sh
+step=0
+run_in_container before.sh "$step"
 echo "::endgroup::"
 
 # Every published version after the first one, then the repository version
 # (the empty string).
 for version in "${versions[@]:1}" ""; do
-    echo "::group::Rebuild container with $(describe "$version")"
+    step=$((step + 1))
+    echo "::group::Rebuild container with $(describe "$version") and check data"
     use_config "$version"
     up --remove-existing-container
     container=$(current_container)
     containers+=("$container")
     volumes+=("$(feature_volume "$container" || true)")
     images="$(workspace_images) $images"
+    run_in_container after.sh "$step"
     echo "::endgroup::"
 done
-
-echo "::group::Check data"
-run_in_container after.sh
-echo "::endgroup::"
 
 # shellcheck source=SCRIPTDIR/rebuild-lib.sh
 source "$repo/scripts/rebuild-lib.sh"

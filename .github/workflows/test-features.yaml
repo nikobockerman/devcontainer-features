@@ -68,8 +68,10 @@ jobs:
         include:
           - feature: fish-persistent-data
             fixture: upgrade-from-v1
+            from: "1"
           - feature: fish-persistent-data
             fixture: upgrade-from-v1-without-history
+            from: "1"
 
     steps:
       - name: Checkout
@@ -78,12 +80,15 @@ jobs:
       - name: Install tools
         uses: ./.github/actions/mise-project-setup
 
-      - name: Testing '${{ matrix.feature }}' data across a rebuild with '${{ matrix.fixture }}'
+      - name: Testing '${{ matrix.feature }}' data across a rebuild with '${{ matrix.fixture }}'${{ matrix.from && format(' from ''{0}''', matrix.from) || '' }}
 
         env:
           FEATURE: ${{ matrix.feature }}
           FIXTURE: ${{ matrix.fixture }}
-        run: mise run test:rebuild "$FEATURE" "$FIXTURE"
+          FROM: ${{ matrix.from }}
+        # FROM is split into one argument per version on purpose: it lists the
+        # published versions to start from, oldest first.
+        run: mise run test:rebuild "$FEATURE" "$FIXTURE" $FROM
 
   test-global:
     runs-on: ubuntu-latest

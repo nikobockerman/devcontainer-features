@@ -1,4 +1,4 @@
 {
   "build": { "dockerfile": "Dockerfile" },
-  "features": { "./poetry-persistent-cache": {} }
+  "features": { "@FEATURE@": {} }
 }

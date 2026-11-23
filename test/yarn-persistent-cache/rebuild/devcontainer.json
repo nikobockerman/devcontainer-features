@@ -1,4 +1,4 @@
 {
   "image": "mcr.microsoft.com/devcontainers/base:debian",
-  "features": { "./yarn-persistent-cache": {} }
+  "features": { "@FEATURE@": {} }
 }

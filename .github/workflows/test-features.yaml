@@ -88,6 +88,12 @@ jobs:
           - feature: fish-persistent-data
             fixture: upgrade-from-v1-without-history
             from: "1"
+          - feature: poetry-persistent-cache
+            fixture: rebuild
+            from: latest
+          - feature: poetry-persistent-cache
+            fixture: rebuild
+            from: previous
 
     steps:
       - name: Checkout

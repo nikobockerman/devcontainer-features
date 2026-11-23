@@ -5,24 +5,24 @@
 # test and the test scripts run inside it.
 #
 # Uses the fixture in test/<feature>/<fixture>/ (rebuild/ by default): brings
-# the dev container up, runs before.sh in it, recreates the container with
+# the dev container up, runs on-create.sh in it, recreates the container with
 # `devcontainer up --remove-existing-container` while keeping its volumes
 # (what "Rebuild Container" does in VS Code and other dev container tools),
-# and runs after.sh in the new container. Both scripts get a per-run
+# and runs on-rebuild.sh in the new container. Both scripts get a per-run
 # REBUILD_TOKEN so that a volume left over from an earlier run cannot pass
-# the test, and REBUILD_STEP: 0 for before.sh, and for after.sh the number
-# of the rebuild it runs after, starting from 1. The fixture's
+# the test, and REBUILD_STEP: 0 for on-create.sh, and for on-rebuild.sh the
+# number of the rebuild it runs after, starting from 1. The fixture's
 # devcontainer.json names the feature "@FEATURE@", a placeholder that the
 # script fills in for each container with the version that container uses.
 #
 # To test an upgrade, name published versions of the feature after the
 # fixture. The first container then uses the first of them, each further one
 # replaces the feature in a rebuild in turn, and the last rebuild uses the
-# version in the repository. The first container runs before.sh and every
-# later one runs after.sh, so each version has to find the data that the
-# versions before it wrote, and can add its own for the versions after it to
-# find. A version is any tag that is published for the feature, such as
-# 2.0.3 or 1 (the newest 1.x).
+# version in the repository. The first container runs on-create.sh and every
+# later one runs on-rebuild.sh, so each version has to find the data that
+# the versions before it wrote, and can add its own for the versions after
+# it to find. A version is any tag that is published for the feature, such
+# as 2.0.3 or 1 (the newest 1.x).
 #
 # Usage: scripts/test-rebuild.sh <feature> [fixture [version...]]
 
@@ -156,7 +156,7 @@ volumes=("$volume")
 # workspace_images, also across builds.
 images="$(workspace_images) $images"
 step=0
-run_in_container before.sh "$step"
+run_in_container on-create.sh "$step"
 echo "::endgroup::"
 
 # Every published version after the first one, then the repository version
@@ -170,7 +170,7 @@ for version in "${versions[@]:1}" ""; do
     containers+=("$container")
     volumes+=("$(feature_volume "$container" || true)")
     images="$(workspace_images) $images"
-    run_in_container after.sh "$step"
+    run_in_container on-rebuild.sh "$step"
     echo "::endgroup::"
 done
 

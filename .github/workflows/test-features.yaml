@@ -65,11 +65,29 @@ jobs:
           - yarn-persistent-cache
         fixture:
           - rebuild
+        # Published versions to start from before the repository version,
+        # oldest first; see scripts/test-rebuild.sh. A dimension of its own,
+        # even with only the empty value, so that the upgrade entries below
+        # add jobs: an include entry whose original matrix values all match
+        # an existing job would only add its new keys to that job.
+        from:
+          - ""
         include:
           - feature: fish-persistent-data
+            fixture: rebuild
+            from: latest
+          - feature: fish-persistent-data
+            fixture: rebuild
+            from: previous
+          - feature: fish-persistent-data
             fixture: upgrade-from-v1
+            from: "1"
+          - feature: fish-persistent-data
+            fixture: upgrade-from-v1
+            from: 1 latest
           - feature: fish-persistent-data
             fixture: upgrade-from-v1-without-history
+            from: "1"
 
     steps:
       - name: Checkout
@@ -78,12 +96,15 @@ jobs:
       - name: Install tools
         uses: ./.github/actions/mise-project-setup
 
-      - name: Testing '${{ matrix.feature }}' data across a rebuild with '${{ matrix.fixture }}'
+      - name: Testing '${{ matrix.feature }}' data across a rebuild with '${{ matrix.fixture }}'${{ matrix.from && format(' from ''{0}''', matrix.from) || '' }}
 
         env:
           FEATURE: ${{ matrix.feature }}
           FIXTURE: ${{ matrix.fixture }}
-        run: mise run test:rebuild "$FEATURE" "$FIXTURE"
+          FROM: ${{ matrix.from }}
+        # FROM is split into one argument per version on purpose: it lists the
+        # published versions to start from, oldest first.
+        run: mise run test:rebuild "$FEATURE" "$FIXTURE" $FROM
 
   test-global:
     runs-on: ubuntu-latest

@@ -22,7 +22,12 @@
 # later one runs on-rebuild.sh, so each version has to find the data that
 # the versions before it wrote, and can add its own for the versions after
 # it to find. A version is any tag that is published for the feature, such
-# as 2.0.3 or 1 (the newest 1.x).
+# as 2.0.3 or 1 (the newest 1.x), or one of:
+#   latest    the newest published release
+#   previous  the release before it
+# Both are resolved to an exact release from the registry, so the log shows
+# which release was tested. If the feature has too few releases for one of
+# them, for example no release before the only one, the test is skipped.
 #
 # Usage: scripts/test-rebuild.sh <feature> [fixture [version...]]
 
@@ -37,9 +42,6 @@ if [ ! -d "$fixture" ]; then
     exit 1
 fi
 published_ref=ghcr.io/nikobockerman/devcontainer-features/$feature
-# The published versions to start from, oldest first; the repository version
-# comes after them.
-versions=("$@")
 
 # Physical path, so that it matches the label the CLI puts on the container
 # even where the temp dir is behind a symlink (/var -> /private/var on macOS).
@@ -49,6 +51,8 @@ ws=$(cd "$(mktemp -d)" && pwd -P)
 # user's UID to match the host user, -uid images on top.
 images_ref="vsc-$(basename "$ws" | tr '[:upper:]' '[:lower:]')-*"
 token=$(date +%s)-$RANDOM
+# Published releases, newest first, fetched once when a version needs them.
+releases=
 # Filled in as the test runs, for cleanup.
 images=
 volume=
@@ -85,6 +89,13 @@ run_in_container() {
     devcontainer exec --workspace-folder "$ws" \
         --remote-env "REBUILD_TOKEN=$token" --remote-env "REBUILD_STEP=$2" \
         bash ".devcontainer/$1"
+}
+
+# Prints the published releases of the feature (x.y.z tags), newest first.
+published_releases() {
+    devcontainer features info tags "$published_ref" --output-format json |
+        jq -r '.publishedTags[] | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))' |
+        sort -rV
 }
 
 # Writes the fixture's devcontainer.json to the workspace with its
@@ -137,6 +148,31 @@ cleanup() {
     rm -rf "$ws"
 }
 trap cleanup EXIT
+
+# Resolve latest and previous to exact releases. "$@" holds the versions to
+# start from, oldest first; the repository version comes after them.
+versions=()
+for version in "$@"; do
+    case $version in
+        latest) index=1 ;;
+        previous) index=2 ;;
+        *) index= ;;
+    esac
+    if [ -n "$index" ]; then
+        if [ -z "$releases" ]; then
+            releases=$(published_releases)
+        fi
+        resolved=$(sed -n "${index}p" <<<"$releases")
+        if [ -z "$resolved" ]; then
+            echo "::notice::Skipping: $feature has no '$version' release." \
+                "Published releases: ${releases//$'\n'/ }"
+            exit 0
+        fi
+        echo "Resolved '$version' to $feature $resolved"
+        version=$resolved
+    fi
+    versions+=("$version")
+done
 
 mkdir "$ws/.devcontainer"
 cp -R "$fixture"/. "$ws/.devcontainer/"

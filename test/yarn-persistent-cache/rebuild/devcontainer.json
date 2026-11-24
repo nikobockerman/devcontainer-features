@@ -1,4 +1,4 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/base:debian",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
   "features": { "@FEATURE@": {} }
 }

@@ -94,6 +94,14 @@ jobs:
           - feature: poetry-persistent-cache
             fixture: rebuild
             from: previous
+          - feature: yarn-persistent-cache
+            fixture: rebuild
+            from: latest
+          # Skipped with a notice until yarn-persistent-cache has a second
+          # release.
+          - feature: yarn-persistent-cache
+            fixture: rebuild
+            from: previous
 
     steps:
       - name: Checkout

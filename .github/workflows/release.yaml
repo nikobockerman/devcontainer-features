@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 permissions:
   actions: write
+  checks: read
   contents: write
   pull-requests: write
   packages: write
@@ -15,6 +16,22 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Require green CI on the released commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The ruleset requires the CI job "check" on PRs, but nothing
+          # stops releasing a main commit whose CI failed or hasn't
+          # finished. filter=latest gives the newest "check" run.
+          conclusion=$(gh api \
+              "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/check-runs?check_name=check&filter=latest" \
+              --jq '[.check_runs[] | select(.app.slug == "github-actions")][0].conclusion // "pending or missing"')
+          if [ "$conclusion" != "success" ]; then
+              echo "::error::CI check on $GITHUB_SHA is $conclusion, not success"
+              exit 1
+          fi
+        shell: bash
+
       - name: Checkout
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 

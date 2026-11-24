@@ -45,13 +45,12 @@ jobs:
           # Stage changes
           git add src/*/README.md
 
-          # Commit
-          message="Automated documentation update"
-          has_updates=true
-          git commit -m "$message" || has_updates=false
-
-          # Push if there were changes
-          if [ "$has_updates" = "true" ]; then
+          # Commit and push if there were changes
+          if git diff --cached --quiet; then
+              echo "No documentation changes"
+          else
+              message="Automated documentation update"
+              git commit -m "$message"
               git push origin "$branch"
               gh pr create --title "$message" --body "$message"
 

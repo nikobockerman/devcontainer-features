@@ -2,6 +2,7 @@ name: Release dev container features & Generate Documentation
 on:
   workflow_dispatch:
 permissions:
+  actions: write
   contents: write
   pull-requests: write
   packages: write
@@ -53,5 +54,12 @@ jobs:
           if [ "$has_updates" = "true" ]; then
               git push origin "$branch"
               gh pr create --title "$message" --body "$message"
+
+              # Pushes and PRs made with GITHUB_TOKEN don't trigger
+              # workflows, so the PR would never get its required checks.
+              # workflow_dispatch is exempt from that rule. The run's
+              # checks attach to the branch's head commit, which is what
+              # the PR shows.
+              gh workflow run ci.yaml --ref "$branch"
           fi
         shell: bash

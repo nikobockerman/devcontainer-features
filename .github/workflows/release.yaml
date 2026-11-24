@@ -2,6 +2,8 @@ name: Release dev container features & Generate Documentation
 on:
   workflow_dispatch:
 permissions:
+  actions: write
+  checks: read
   contents: write
   pull-requests: write
   packages: write
@@ -14,6 +16,22 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Require green CI on the released commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The ruleset requires the CI job "check" on PRs, but nothing
+          # stops releasing a main commit whose CI failed or hasn't
+          # finished. filter=latest gives the newest "check" run.
+          conclusion=$(gh api \
+              "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/check-runs?check_name=check&filter=latest" \
+              --jq '[.check_runs[] | select(.app.slug == "github-actions")][0].conclusion // "pending or missing"')
+          if [ "$conclusion" != "success" ]; then
+              echo "::error::CI check on $GITHUB_SHA is $conclusion, not success"
+              exit 1
+          fi
+        shell: bash
+
       - name: Checkout
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
@@ -35,7 +53,6 @@ jobs:
           # Configure git
           git config --global user.email github-actions[bot]@users.noreply.github.com
           git config --global user.name github-actions[bot]
-          git config pull.rebase false
 
           # Create branch
           branch=automated-documentation-update-$GITHUB_RUN_ID
@@ -44,14 +61,20 @@ jobs:
           # Stage changes
           git add src/*/README.md
 
-          # Commit
-          message="Automated documentation update"
-          has_updates=true
-          git commit -m "$message" || has_updates=false
-
-          # Push if there were changes
-          if [ "$has_updates" = "true" ]; then
+          # Commit and push if there were changes
+          if git diff --cached --quiet; then
+              echo "No documentation changes"
+          else
+              message="Automated documentation update"
+              git commit -m "$message"
               git push origin "$branch"
               gh pr create --title "$message" --body "$message"
+
+              # Pushes and PRs made with GITHUB_TOKEN don't trigger
+              # workflows, so the PR would never get its required checks.
+              # workflow_dispatch is exempt from that rule. The run's
+              # checks attach to the branch's head commit, which is what
+              # the PR shows.
+              gh workflow run ci.yaml --ref "$branch"
           fi
         shell: bash

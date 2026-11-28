@@ -55,7 +55,16 @@ sudo chown "$(id -un)":"$(id -gn)" "$mount_point"
 # Migrate from versions 1.0.*: move fish data from the old location to the new
 # one and remove the old data dir symlink
 prev_fish_persistent_dir="$mount_point"/fish
-if [ -d "$prev_fish_persistent_dir" ]; then
+# Versions 2.0.0 to 2.0.3 left a symlink to the mount point at that path
+# when their onCreate ran three times against the same data dir path, for
+# example when it was rerun by hand or the home directory is persisted.
+# That is not 1.0.* data: following it would move the volume's contents
+# onto themselves.
+if [ -L "$prev_fish_persistent_dir" ] && [ "$(readlink "$prev_fish_persistent_dir")" = "$mount_point" ]; then
+    echo "Removing symlink $prev_fish_persistent_dir -> $mount_point left by versions 2.0.0 to 2.0.3"
+    rm "$prev_fish_persistent_dir"
+fi
+if [ -d "$prev_fish_persistent_dir" ] && [ ! -L "$prev_fish_persistent_dir" ]; then
     echo "Migrating data from: $prev_fish_persistent_dir to $mount_point"
     # The patterns also match dotfiles. A pattern that matches nothing stays
     # as literal text, which the existence test skips.

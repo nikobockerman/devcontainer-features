@@ -88,6 +88,8 @@ jobs:
           - feature: fish-persistent-data
             fixture: upgrade-from-v1-without-history
             from: "1"
+          - feature: fish-persistent-data
+            fixture: self-link-in-volume
           - feature: poetry-persistent-cache
             fixture: rebuild
             from: latest

@@ -2,8 +2,8 @@
 
 ### 2.0.0
 
-- Move data from `/mnt/fish-persistent-history/fish` directory to the root of
-  the mount point. This was done to simplify the logic a little bit and because
+- Move data from `/mnt/fish-persistent-data/fish` directory to the root of the
+  mount point. This was done to simplify the logic a little bit and because
   the subdirectory doesn't add any value.
   A migration is included which moves the data to new location so that it
   remains available when this new version is updated to for a container that
